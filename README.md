@@ -1,51 +1,98 @@
 # Machine-Learning-Assignment
-# Decision Trees and Overfitting Tutorial: Breast Cancer Classification
+# Healthcare Dataset Analysis
+
+This repository contains an analysis pipeline for the **healthcare-dataset-stroke-data**. The code performs data exploration, preprocessing, and builds a machine learning model to predict stroke occurrence.
 
 ## Table of Contents
-- Introduction
-- Dataset
-- Workflow
-- Results and Visualizations
-- License
-
----
+- [Introduction](#introduction)
+- [Prerequisites](#prerequisites)
+- [Dataset](#dataset)
+- [Workflow](#workflow)
+- [Results and Visualizations](#results-and-visualizations)
+- [License](#license)
 
 ## Introduction
-This project demonstrates the use of Decision Tree Classifiers to classify breast cancer as Malignant (M) or Benign (B). It covers key aspects such as:
+The project analyzes and preprocesses the healthcare dataset and builds a Random Forest Classifier to predict stroke occurrences. It handles missing values, categorical encoding, and addresses class imbalance using SMOTE.
 
-1. Building a Decision Tree Classifier.
-2. Exploring overfitting by varying tree depths.
-3. Optimizing the Decision Tree using hyperparameters like `max_depth` and `min_samples_split`.
-4. Visualizing the decision tree and evaluating its performance.
+## Prerequisites
+
+Make sure you have the following libraries installed:
+
+- pandas
+- seaborn
+- matplotlib
+- numpy
+- scikit-learn
+- imbalanced-learn
+
+You can install these dependencies using pip:
+
+```bash
+pip install pandas seaborn matplotlib numpy scikit-learn imbalanced-learn
+```
 
 ## Dataset
-The dataset used is the Breast Cancer Dataset, provided as a CSV file.
 
-- **Features**: Measurements such as radius, texture, perimeter, area, and more.
-- **Target**: The `diagnosis` column, where:
-  - `M` → Malignant (1)
-  - `B` → Benign (0)
+The dataset used is `healthcare-dataset-stroke-data.csv`. Ensure this file is in the same directory as the script.
+
+### Features:
+1. Various patient details like gender, age, and BMI.
+2. Health attributes like glucose levels, hypertension, and heart disease.
+3. Target variable: `stroke` (1 for stroke occurrence, 0 otherwise).
 
 ## Workflow
 
-1. Load and preprocess the dataset.
-2. Split the data into training and testing sets.
-3. Train a Decision Tree Classifier and evaluate its performance.
-4. Visualize the decision tree and confusion matrix.
-5. Explore overfitting using a deeper tree and mitigate it with optimized hyperparameters.
-6. Plot accuracy vs. tree depth to illustrate overfitting and generalization.
+1. **Load and Explore the Dataset:**
+   - Display dataset structure, basic statistics, and check for missing values.
+   
+2. **Visualize Missing Data:**
+   - Use heatmaps to display the distribution of missing data.
+
+3. **Data Preprocessing:**
+   - Fill missing BMI values with the mean.
+   - Encode categorical variables using LabelEncoder.
+   - Drop irrelevant columns (e.g., `id`) and handle anomalies (e.g., removing rows with gender `Other`).
+
+4. **Feature Engineering:**
+   - Generate correlation heatmaps for numeric variables.
+   - Transform glucose levels using log transformation for better distribution.
+
+5. **Class Imbalance Handling:**
+   - Apply SMOTE to balance the target classes (`stroke`).
+
+6. **Train-Test Split:**
+   - Split the dataset into training and testing sets using `train_test_split`.
+
+7. **Model Training:**
+   - Train a Random Forest Classifier on the resampled dataset.
+
+8. **Evaluation:**
+   - Predict outcomes on the test set and evaluate using a confusion matrix.
 
 ## Results and Visualizations
 
-### 1. Decision Tree Visualization
-Displays the trained tree with features and decision rules, enabling better interpretability.
+1. **Correlation Heatmap:**
+   - Displays the correlation between numerical features.
 
-### 2. Confusion Matrix
-A matrix illustrating the model's performance on test data, showing true positives, true negatives, false positives, and false negatives.
+2. **Count Plots for Categorical Features:**
+   - Visualizes the distribution of categorical variables.
 
-### 3. Depth vs. Accuracy
-Plots training and testing accuracy against tree depth to show the impact of model complexity and overfitting.
+3. **Confusion Matrix:**
+   - Shows the model's performance on test data:
+
+   ```python
+   plt.figure(figsize=(8, 6))
+   sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['No Stroke', 'Stroke'], yticklabels=['No Stroke', 'Stroke'])
+   plt.title('Confusion Matrix')
+   plt.xlabel('Predicted Label')
+   plt.ylabel('True Label')
+   plt.show()
+   ```
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Happy analyzing!
